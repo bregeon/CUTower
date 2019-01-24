@@ -1,0 +1,63 @@
+#
+# Macro file for the initialization phase of "exampleN03.cc"
+# when running in interactive mode
+#
+# Sets some default verbose
+#
+/control/verbose 2
+/control/saveHistory
+/run/verbose 2
+# select EM PhysicsList
+#/testem/phys/addPhysics  standard
+#/testem/phys/addPhysics  G4standard
+/testem/phys/addPhysics  Livermore
+#/testem/phys/addPhysics  Penelope
+
+# select hadronic PhysicsList
+/testem/phys/addPhysics  binary 
+#/testem/phys/addPhysics  binary_ion
+/testem/phys/addPhysics  elastic
+/testem/phys/addPhysics  gamma_nuc
+/testem/phys/addPhysics  stopping
+
+# Set Cuts
+/testem/phys/setCuts    0.010 mm
+/testem/stepMax         1.    mm
+#/testem/phys/mscStepLimit 1
+#
+#/process/eLoss/preciseRange  true
+#/process/eLoss/integral      true
+
+# Define Calorimeter parameters
+# for real LAT Tracker Tower setAlTkrWidthX0 = 0
+# To use Al block tracker  : AlTkrWidthX0 *X0
+# To use realistic honeycomb : HoneyCombType 2
+# To use homogeneous honeycomb : HoneyCombType 1
+# To use no honeycomb : HoneyCombType 0
+/N03/det/setNbOfLayers 8
+/N03/det/setNbOfColumns 12
+/N03/det/setLayerGap 1.45
+/N03/det/setColumnGap 1.14
+/N03/det/setAlTkrWidthX0 0
+/N03/det/setHoneyCombType 2
+/run/initialize 
+#/N03/det/update
+
+
+# Print Event data
+/N03/event/printModulo 100
+
+# Gun Radom, Position, Width
+/N03/gun/rndm on
+/N03/gun/pos 0. 0. -100. cm
+/N03/gun/width 0.5 cm
+/N03/gun/angle 0.3 deg
+/N03/gun/div   5. mrad
+/N03/gun/particle e-
+/N03/gun/energy 2.5 GeV
+
+#Beam On 
+/Cern/random/run 0
+/N03/gun/beam off
+/run/beamOn 3000
+
